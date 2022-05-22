@@ -65,3 +65,20 @@ function resetButton(button) {
 
 }
 
+
+function getRandom(min, max) {    //function to give random integer between 2 values; min and max
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+let colors=["red","yellow","blue","green"];
+
+let random_index=getRandom(0,3);
+
+let random_color=color[random_index];
+
+
+
+
+
