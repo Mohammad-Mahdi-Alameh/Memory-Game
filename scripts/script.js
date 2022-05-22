@@ -20,46 +20,26 @@ let wrong_sound=new Audio("../assets/sounds/wrong.mp3");
 
 const colors=["red","yellow","blue","green"];
 
-let color;
+var color;
 
 var sequence;
 
+function activateButton(id) {
 
+document.getElementById(id).addEventListener("click", function () {
+    color = id;
+    playSound(id);
+    styleButtonOnClick(document.getElementById(id));
+    setTimeout(() => {
+        resetButton(document.getElementById(id));
+    }, 400);
+});}
 
-red_btn.addEventListener("click",function () {
-    color="red";
-    playSound(color);
-    styleButtonOnClick(red_btn);
-    setTimeout(()=>{resetButton(red_btn);},400);
+function activateButtons(){
+    colors.forEach(activateButton);
+}
 
-
-});
-blue_btn.addEventListener("click",function () {
-    color="blue";
-    playSound(color);
-    styleButtonOnClick(blue_btn);
-    setTimeout(()=>{resetButton(blue_btn);},400);
-
-
-});
-green_btn.addEventListener("click",function () {
-    color="green";
-    playSound(color);
-    styleButtonOnClick(green_btn);
-    setTimeout(()=>{resetButton(green_btn);},400);
-
-
-});
-yellow_btn.addEventListener("click",function () {
-    color="yellow";
-    playSound(color);
-    styleButtonOnClick(yellow_btn);
-    setTimeout(()=>{resetButton(yellow_btn);},400);
-
-
-});
-
-
+activateButtons();
 function styleButtonOnClick(button) {
     button.style.backgroundColor="grey";
     button.style.boxShadow="0px 0px 15px white";
