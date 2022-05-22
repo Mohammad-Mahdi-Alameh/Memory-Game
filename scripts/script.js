@@ -138,7 +138,20 @@ function addColorToSequence() {
 function checkAnswer() {
     correct_choice=random_color;
     if (user_choice !== correct_choice)
-        header.innerHTML="loser!";
+       gameOver();
+
+}
+
+function gameOver() {
+    playSound("wrong");
+    document.body.style.backgroundColor="red";
+    header.innerHTML="Game Over, Press Any Key to <br> Restart";
+    setTimeout(() => {
+        resetButton(document.body.style.backgroundColor="#1a2041");
+    }, 150);
+    document.addEventListener("keypress",playGame);
+
+
 
 }
 
