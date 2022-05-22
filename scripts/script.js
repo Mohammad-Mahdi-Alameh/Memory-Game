@@ -122,9 +122,7 @@ function playSound(id) {
         default:
             break;
 
-
     }
-
 }
 
 function showRandomColor(id) {
@@ -174,26 +172,27 @@ function addColorToSequence() {
 
 
 
-// var j=0;
-// var user_choices=[];
-// function checkAnswer() {
-//
-//     if(sequence[j]!==user_choice){
-//         gameOver();
-//     }
-//     else{
+var j=0;
+var user_choices=[];
+function checkAnswer() {
+
+    if(sequence[j]!==user_choice){
+        gameOver();
+    }
+    else{
 
 
 
-    // correct_choice=checking_sequence.pop();
-    // user_choices.push(user_choice);
-    // if (user_choice !== correct_choice)
-    //
-    // {gameOver();}
-    //
-    // else if(checking_sequence.length === 0){
-    //         newLevel();
-    //     }
+    correct_choice=checking_sequence.pop();
+    user_choices.push(user_choice);
+    if (user_choice !== correct_choice)
+
+    {gameOver();}
+
+    else if(checking_sequence.length === 0){
+            newLevel();
+        }
+    }}
 
 
 
@@ -216,19 +215,20 @@ function addColorToSequence() {
 
 function gameOver() {
     playSound("wrong");
-    document.body.style.backgroundColor="red";
-    header.innerHTML="Game Over, Press Any Key to <br> Restart";
+    document.body.style.backgroundColor = "red";
+    header.innerHTML = "Game Over, Press Any Key to <br> Restart";
     setTimeout(() => {
-        resetButton(document.body.style.backgroundColor="#1a2041");
+        resetButton(document.body.style.backgroundColor = "#1a2041");
     }, 150);
-    document.addEventListener("keypress",startGame);
+    document.addEventListener("keypress", startGame);
     sequence.splice(0, sequence.length);
+}
 
 
     // deactivateButtons();
 
 
-}
+
 
 //reset score  sequence level deactivate button gameover
 
