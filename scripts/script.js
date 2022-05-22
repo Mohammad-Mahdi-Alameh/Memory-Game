@@ -18,7 +18,11 @@ let blue_sound=new Audio("../assets/sounds/blue.mp3");
 
 let wrong_sound=new Audio("../assets/sounds/wrong.mp3");
 
-var color;
+const colors=["red","yellow","blue","green"];
+
+let color;
+
+var sequence;
 
 red_btn.addEventListener("click",function () {
     color="red";
@@ -72,11 +76,16 @@ function getRandom(min, max) {    //function to give random integer between 2 va
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-let colors=["red","yellow","blue","green"];
+
+//when starting game first time
 
 let random_index=getRandom(0,3);
 
 let random_color=color[random_index];
+
+showRandomColor(random_color);
+
+
 
 
 
