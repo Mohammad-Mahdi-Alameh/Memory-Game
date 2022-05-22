@@ -20,22 +20,23 @@ let wrong_sound=new Audio("../assets/sounds/wrong.mp3");
 
 const colors=["red","yellow","blue","green"];
 
-var level = 1 , user_choice , correct_choice , random_color , random_index , sequence , color ,checking_sequence;
+var btn_id,level = 1 , user_choice , correct_choice , random_color , random_index ,  color ;
 
+var sequence=[];
+
+var checking_sequence=new Array();
 
 function activateButton(id) { //activate single button with given id
 
-document.getElementById(id).addEventListener("click", function () {
-    color = id;
-    playSound(id);
-    styleButtonOnClick(document.getElementById(id));
-    setTimeout(() => {
-        resetButton(document.getElementById(id));
-    }, 400);
+    document.getElementById(id).addEventListener("click", function () {
+      clicked(id);
+    });
 
-    iWasPressed(id);
+}
+function deactivateButton(id) { //deactivate single button with given id
 
-    checkAnswer();
+    document.getElementById(id).removeEventListener("click", function () {
+        clicked(id);
     });
 
 }
@@ -43,6 +44,43 @@ document.getElementById(id).addEventListener("click", function () {
 function activateButtons(){ //activate all buttons
     colors.forEach(activateButton);
 }
+
+function deactivateButtons(){ //deactivate all buttons from all listeners
+    for(let i=0;i<colors.length;i++){
+        let element = document. getElementById(colors[i]);
+        element. parentNode. removeChild(element);
+
+    }
+
+}
+
+
+// function activateButton(id) { //activate single button with given id
+//     document.getElementById(id).addEventListener("click", clicked);
+//
+// }
+function clicked(btn_id) {
+    color=btn_id;
+    playSound(btn_id);
+    styleButtonOnClick(document.getElementById(btn_id));
+    setTimeout(() => {
+        resetButton(document.getElementById(btn_id));
+    }, 400);
+
+    iWasPressed(btn_id);
+
+    checkAnswer();
+}
+
+// function activateButtons(){ //activate all buttons
+//     btn_id=colors[i];
+//
+//     for(var i=0;i<colors.length;i++){
+//         activateButton(colors[i]);
+//         btn_id=colors[i];
+//
+//     }
+// }
 
 function styleButtonOnClick(button) {
     button.style.backgroundColor="grey";
@@ -97,23 +135,25 @@ function showRandomColor(id) {
 
 }
 function getRandomColor() {
+
     random_index=getRandom(0,3);
 
     random_color=colors[random_index];
+
 }
 
 
 //Start Game
-document.addEventListener("keypress",playGame);
+document.addEventListener("keypress",startGame);
 
 //
-function playGame() {
+function startGame() {
     header.innerHTML="Level "+level;
     getRandomColor();
-    // addColorToSequence();
+    addColorToSequence();
     showRandomColor(random_color);//show random color on screen for the user
     activateButtons();
-    document.removeEventListener("keypress",playGame);
+    document.removeEventListener("keypress",startGame);
 
 
 
@@ -126,21 +166,53 @@ function iWasPressed(id){
 
 
 function addColorToSequence() {
+
     sequence.push(random_color);
 
-    checking_sequence=sequence.reverse();
-
-}
+    checking_sequence=sequence.reverse();}
 
 
 
 
-function checkAnswer() {
-    correct_choice=random_color;
-    if (user_choice !== correct_choice)
-       gameOver();
+// var j=0;
+// var user_choices=[];
+// function checkAnswer() {
+//
+//     if(sequence[j]!==user_choice){
+//         gameOver();
+//     }
+//     else{
 
-}
+
+
+    // correct_choice=checking_sequence.pop();
+    // user_choices.push(user_choice);
+    // if (user_choice !== correct_choice)
+    //
+    // {gameOver();}
+    //
+    // else if(checking_sequence.length === 0){
+    //         newLevel();
+    //     }
+
+
+
+// function newLevel() {
+//     level++;
+//     header.innerHTML = "Level " + level;
+//     getRandomColor();
+//     showRandomColor(random_color);
+//     addColorToSequence();
+//     // header.innerHTML=sequence[0]+sequence[1]+sequence[2];
+// }
+//     // correct=0;
+//     // correct_choice=sequence[correct];
+//     // if (user_choice !== correct_choice)
+    //
+    //     gameOver();
+
+
+
 
 function gameOver() {
     playSound("wrong");
@@ -149,11 +221,14 @@ function gameOver() {
     setTimeout(() => {
         resetButton(document.body.style.backgroundColor="#1a2041");
     }, 150);
-    document.addEventListener("keypress",playGame);
+    document.addEventListener("keypress",startGame);
+    sequence.splice(0, sequence.length);
 
+
+    // deactivateButtons();
 
 
 }
 
-//reset score level deactivate button gameover
+//reset score  sequence level deactivate button gameover
 
