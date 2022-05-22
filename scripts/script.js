@@ -20,9 +20,7 @@ let wrong_sound=new Audio("../assets/sounds/wrong.mp3");
 
 const colors=["red","yellow","blue","green"];
 
-var color;
-
-var sequence;
+var level = 1 , user_choice , correct_choice , random_color , random_index , sequence , color ,checking_sequence;
 
 
 function activateButton(id) { //activate single button with given id
@@ -34,9 +32,15 @@ document.getElementById(id).addEventListener("click", function () {
     setTimeout(() => {
         resetButton(document.getElementById(id));
     }, 400);
-});}
 
-function activateButtons(){ //activate all butttons
+    iWasPressed(id);
+
+    checkAnswer();
+    });
+
+}
+
+function activateButtons(){ //activate all buttons
     colors.forEach(activateButton);
 }
 
@@ -58,16 +62,8 @@ function getRandom(min, max) {    //function to give random integer between 2 va
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-
-//when starting game first time
-
-let random_index=getRandom(0,3);
-
-let random_color=colors[random_index];
-
-// header.innerHTML = "mm";
-
 let promise;
+
 function playSound(id) {
     switch (id) {
         case "red":
@@ -100,20 +96,51 @@ function showRandomColor(id) {
     setTimeout(()=>{document.getElementById(id).style.visibility="visible";},400);
 
 }
+function getRandomColor() {
+    random_index=getRandom(0,3);
+
+    random_color=colors[random_index];
+}
 
 
 //Start Game
-document.addEventListener("keypress",startGame);
+document.addEventListener("keypress",playGame);
 
 //
-function startGame() {
-    header.innerHTML="Level 1"
-    showRandomColor(random_color);
+function playGame() {
+    header.innerHTML="Level "+level;
+    getRandomColor();
+    // addColorToSequence();
+    showRandomColor(random_color);//show random color on screen for the user
     activateButtons();
-    document.removeEventListener("keypress",startGame);
+    document.removeEventListener("keypress",playGame);
 
+
+
+}
+function iWasPressed(id){
+    user_choice=id;
+}
+
+//when starting game first time
+
+
+function addColorToSequence() {
+    sequence.push(random_color);
+
+    checking_sequence=sequence.reverse();
 
 }
 
 
+
+
+function checkAnswer() {
+    correct_choice=random_color;
+    if (user_choice !== correct_choice)
+        header.innerHTML="loser!";
+
+}
+
+//reset score level deactivate button gameover
 
