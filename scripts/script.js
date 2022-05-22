@@ -24,9 +24,11 @@ let color;
 
 var sequence;
 
+
+
 red_btn.addEventListener("click",function () {
     color="red";
-    red_sound.play();
+    playSound(color);
     styleButtonOnClick(red_btn);
     setTimeout(()=>{resetButton(red_btn);},400);
 
@@ -34,7 +36,7 @@ red_btn.addEventListener("click",function () {
 });
 blue_btn.addEventListener("click",function () {
     color="blue";
-    blue_sound.play();
+    playSound(color);
     styleButtonOnClick(blue_btn);
     setTimeout(()=>{resetButton(blue_btn);},400);
 
@@ -42,7 +44,7 @@ blue_btn.addEventListener("click",function () {
 });
 green_btn.addEventListener("click",function () {
     color="green";
-    green_sound.play();
+    playSound(color);
     styleButtonOnClick(green_btn);
     setTimeout(()=>{resetButton(green_btn);},400);
 
@@ -50,7 +52,7 @@ green_btn.addEventListener("click",function () {
 });
 yellow_btn.addEventListener("click",function () {
     color="yellow";
-    yellow_sound.play();
+    playSound(color);
     styleButtonOnClick(yellow_btn);
     setTimeout(()=>{resetButton(yellow_btn);},400);
 
@@ -81,24 +83,52 @@ function getRandom(min, max) {    //function to give random integer between 2 va
 
 let random_index=getRandom(0,3);
 
-let random_color=color[random_index];
+let random_color=colors[random_index];
+
+// header.innerHTML = "mm";
+
+let promise;
+function playSound(id) {
+    switch (id) {
+        case "red":
+            promise = red_sound.play();
+            break;
+        case "blue":
+            promise = blue_sound.play();
+            break;
+        case "green":
+            promise = green_sound.play();
+            break;
+        case "yellow":
+            promise = yellow_sound.play();
+            break;
+        case "wrong":
+            promise = wrong_sound.play();
+            break;
+        default:
+            break;
 
 
-
-showRandomColor(random_color);
-
-
-
-function showRandomColor(id) {
-
-    let sound=id+"_sound";
-    sound.play();
-    id.style.visibility="hide";
-    setTimeout(()=>{id.style.visibility="visible";},400);
+    }
 
 }
 
+function showRandomColor(id) {
 
+    playSound(id);
+    document.getElementById(id).style.visibility="hidden";
+    setTimeout(()=>{document.getElementById(id).style.visibility="visible";},400);
+
+}
+
+document.addEventListener("keypress",function() {
+    startGame();
+
+});
+function startGame() {
+    header.innerHTML="Level 1"
+    showRandomColor(random_color);
+}
 
 
 
