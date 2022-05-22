@@ -83,9 +83,20 @@ let random_index=getRandom(0,3);
 
 let random_color=color[random_index];
 
+
+
 showRandomColor(random_color);
 
 
+
+function showRandomColor(id) {
+
+    let sound=id+"_sound";
+    sound.play();
+    id.style.visibility="hide";
+    setTimeout(()=>{id.style.visibility="visible";},400);
+
+}
 
 
 
