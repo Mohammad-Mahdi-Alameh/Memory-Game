@@ -24,7 +24,8 @@ var color;
 
 var sequence;
 
-function activateButton(id) {
+
+function activateButton(id) { //activate single button with given id
 
 document.getElementById(id).addEventListener("click", function () {
     color = id;
@@ -35,11 +36,10 @@ document.getElementById(id).addEventListener("click", function () {
     }, 400);
 });}
 
-function activateButtons(){
+function activateButtons(){ //activate all butttons
     colors.forEach(activateButton);
 }
 
-activateButtons();
 function styleButtonOnClick(button) {
     button.style.backgroundColor="grey";
     button.style.boxShadow="0px 0px 15px white";
@@ -101,13 +101,18 @@ function showRandomColor(id) {
 
 }
 
-document.addEventListener("keypress",function() {
-    startGame();
 
-});
+//Start Game
+document.addEventListener("keypress",startGame);
+
+//
 function startGame() {
     header.innerHTML="Level 1"
     showRandomColor(random_color);
+    activateButtons();
+    document.removeEventListener("keypress",startGame);
+
+
 }
 
 
